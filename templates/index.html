@@ -1,1 +1,89 @@
-<h1>Hello</h1>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+    <form action="/submit" method="POST" class="note-form" id="noteForm">
+        <h2>Add Note</h2>
+
+        <label for="title">Title</label>
+        <input
+            id="title"
+            type="text"
+            name="title"
+            placeholder="Enter the title"
+            required
+        >
+
+        <label for="details">Details</label>
+        <textarea
+            id="details"
+            name="details"
+            placeholder="Write your note..."
+            required
+        ></textarea>
+
+        <input
+            id="add-note-button"
+            type="submit"
+            value="Add Note"
+        >
+    </form>
+</div>
+
+<audio
+    id="gabrielAudio"
+    src="{{ url_for('static', filename='audio/gabe.mp3') }}">
+</audio>
+
+<script>
+    const form = document.getElementById("noteForm");
+    const audio = document.getElementById("gabrielAudio");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        audio.currentTime = 0;
+
+        audio.play().then(() => {
+            setTimeout(() => {
+                form.submit();
+            }, 1000);
+        }).catch(() => {
+            form.submit();
+        });
+    });
+</script>
+
+<div class="notes-container">
+    <ul>
+        {% for book in info %}
+        <li>
+            <div class="sticky-container">
+                <div class="sticky-outer">
+                    <div class="sticky">
+                        <svg width="0" height="0">
+                            <defs>
+                                <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
+                                    <path
+                                        d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
+                                        stroke-linejoin="round"
+                                        stroke-linecap="square"
+                                    />
+                                </clipPath>
+                            </defs>
+                        </svg>
+
+                        <div class="sticky-content">
+                            <h3>{{ book.titulo }}</h3>
+                            <p>{{ book.detalhes }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img
+            class="logo"
+            src="{{ url_for('static', filename='img/logo-getit.png') }}"
+            alt="Get-It"
+        >
+
+        <span class="brand-title">GET-IT</span>
+    </div>
+
+    <button onclick="document.getElementById('som').play()" class="add-note">Add Note</button>
+    <audio id="som">
+        <source src="{{ url_for('static', filename='audio/button_clicked1.mp3') }}" type="audio/mpeg">
+    </audio>
+</nav>
