@@ -1,0 +1,11 @@
+<form class="form" method="POST" action="{{ url_for('add_note') }}">
+  <label class="form-label">
+    Título
+    <input class="form-input" name="titulo" type="text" placeholder="Digite o título">
+  </label>
+  <label class="form-label">
+    Detalhes
+    <input class="form-input" name="detalhes" type="text" placeholder="Digite os detalhes">
+  </label>
+  <button class="form-button" type="submit">Add</button>
+</form>

@@ -1,22 +1,70 @@
-import json
+import sqlite3
 
-def load_data():
-  with open('static/data/notes.json', 'r', encoding='utf-8') as f:
-    content  =  json.load(f)
-    return content
+class BancoDados:
+    def __init__(self):
+        conexao = sqlite3.connect("banco.db")
+        cursor = conexao.cursor()
 
-def create_data(name, details):
-    content = {
-      "titulo": name,
-      "detalhes": details,
-    }
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS notas (
+                id INTEGER PRIMARY KEY,
+                titulo TEXT NOT NULL,
+                detalhes TEXT NOT NULL
+            )
+        """)
 
-    try:
-       data = load_data()
-    except (FileNotFoundError, json.JSONDecodeError):
-       data = []
-       
-    data.append(content)
+        conexao.commit()
+        conexao.close()
 
-    with open('static/data/notes.json', 'w', encoding='utf-8') as f:
-      json.dump(data, f, ensure_ascii=False, indent=2)
+    def add_note(self, title, details):
+        conexao = sqlite3.connect("banco.db")
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            INSERT INTO notas (titulo, detalhes)
+            VALUES (?, ?)
+        """, (title, details))
+
+        conexao.commit()
+        conexao.close()
+
+    def get_notes(self):
+        conexao = sqlite3.connect("banco.db")
+        conexao.row_factory = sqlite3.Row
+
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            SELECT * FROM notas
+        """)
+
+        notas = cursor.fetchall()
+
+        conexao.close()
+
+        return notas
+
+    def remove_note(self, id):
+        conexao = sqlite3.connect("banco.db")
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            DELETE FROM notas
+            WHERE id = ?
+        """, (id,))
+
+        conexao.commit()
+        conexao.close()
+
+    def edit_note(self, id, title, details):
+        conexao = sqlite3.connect("banco.db")
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            UPDATE notas
+            SET titulo = ?, detalhes = ?
+            WHERE id = ?
+        """, (title, details, id))
+
+        conexao.commit()
+        conexao.close()
