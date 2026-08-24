@@ -44,6 +44,21 @@ class BancoDados:
 
         return notas
 
+    def get_note(self, id):
+        conexao = sqlite3.connect("banco.db")
+        conexao.row_factory = sqlite3.Row
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            SELECT * FROM notas WHERE id = ?
+        """, (id,))
+
+        nota = cursor.fetchone()
+
+        conexao.close()
+
+        return nota
+
     def remove_note(self, id):
         conexao = sqlite3.connect("banco.db")
         cursor = conexao.cursor()

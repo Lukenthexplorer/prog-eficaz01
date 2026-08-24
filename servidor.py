@@ -20,10 +20,9 @@ def add_note():
 
     return redirect(url_for('home'))
 
-
 @app.route('/notes/<int:id>/delete', methods=['POST'])
-def delete_note(id):
-    db.delete_note(id)
+def remove_note(id):
+    db.remove_note(id)
     return redirect(url_for('home'))
 
 
@@ -32,7 +31,7 @@ def edit_note(id):
     if request.method == 'POST':
         titulo = request.form['titulo']
         detalhes = request.form['detalhes']
-        db.update_note(id, title=titulo, details=detalhes)
+        db.edit_note(id, title=titulo, details=detalhes)
         return redirect(url_for('home'))
 
     nota = db.get_note(id)

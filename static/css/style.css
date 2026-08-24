@@ -221,3 +221,39 @@ body {
   letter-spacing: 0.25em;
   color: var(--black);
 }
+
+.edit-page {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.edit-heading {
+  margin: 40px 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--black);
+}
+
+.edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.form-cancel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-mid);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.form-cancel:hover {
+  color: var(--black);
+}
