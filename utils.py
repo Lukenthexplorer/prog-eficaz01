@@ -37,6 +37,7 @@ class BancoDados:
 
         cursor.execute("""
             SELECT * FROM notas
+            ORDER BY favorita DESC, id ASC
         """)
 
         notas = cursor.fetchall()
