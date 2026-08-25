@@ -1,12 +1,23 @@
 {% for nota in notas %}
 <li class="note-card">
     <div class="note-actions">
-        <a href="{{ url_for('edit_note', id=nota.id) }}" class="action-btn", name="edit_button">
+        <a href="{{ url_for('edit_note', id=nota.id) }}" class="action-btn" name="edit_button">
             <img src="{{ url_for('static', filename='img/pencil.svg') }}" alt="Editar" class="action-icon">
         </a>
+
         <form method="POST" action="{{ url_for('remove_note', id=nota.id) }}" class="delete-form">
-            <button type="submit"  class="action-btn" name="delete_button">
+            <button type="submit" class="action-btn" name="delete_button">
                 <img src="{{ url_for('static', filename='img/bin.svg') }}" alt="Excluir" class="action-icon">
+            </button>
+        </form>
+
+        <form method="POST" action="{{ url_for('favorite_note', id=nota.id) }}" class="favorite-form">
+            <button type="submit" class="action-btn" name="favorite_button">
+                {% if nota.favorita %}
+                    <img src="{{ url_for('static', filename='img/favorite_colored.svg') }}" alt="Desfavoritar" class="action-icon is-favorited">
+                {% else %}
+                    <img src="{{ url_for('static', filename='img/favorite_uncolored.svg') }}" alt="Favoritar" class="action-icon">
+                {% endif %}
             </button>
         </form>
     </div>

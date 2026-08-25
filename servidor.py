@@ -37,6 +37,11 @@ def edit_note(id):
     nota = db.get_note(id)
     return render_template('edit.html', nota=nota)
 
+@app.route('/notes/<int:id>/favorite', methods=['POST'])
+def favorite_note(id):
+    db.toggle_favorite(id)
+    return redirect(url_for('home'))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

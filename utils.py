@@ -9,7 +9,8 @@ class BancoDados:
             CREATE TABLE IF NOT EXISTS notas (
                 id INTEGER PRIMARY KEY,
                 titulo TEXT NOT NULL,
-                detalhes TEXT NOT NULL
+                detalhes TEXT NOT NULL,
+                favorita INTEGER NOT NULL DEFAULT 0
             )
         """)
 
@@ -80,6 +81,19 @@ class BancoDados:
             SET titulo = ?, detalhes = ?
             WHERE id = ?
         """, (title, details, id))
+
+        conexao.commit()
+        conexao.close()
+
+    def toggle_favorite(self, id):
+        conexao = sqlite3.connect("banco.db")
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            UPDATE notas
+            SET favorita = CASE WHEN favorita = 1 THEN 0 ELSE 1 END
+            WHERE id = ?
+        """, (id,))
 
         conexao.commit()
         conexao.close()
