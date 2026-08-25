@@ -6,10 +6,10 @@ class BancoDados:
         cursor = conexao.cursor()
 
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS notas (
+            CREATE TABLE IF NOT EXISTS note (
                 id INTEGER PRIMARY KEY,
-                titulo TEXT NOT NULL,
-                detalhes TEXT NOT NULL,
+                title TEXT NOT NULL,
+                content TEXT NOT NULL,
                 favorita INTEGER NOT NULL DEFAULT 0
             )
         """)
@@ -22,7 +22,7 @@ class BancoDados:
         cursor = conexao.cursor()
 
         cursor.execute("""
-            INSERT INTO notas (titulo, detalhes)
+            INSERT INTO note (title, content)
             VALUES (?, ?)
         """, (title, details))
 
@@ -36,7 +36,7 @@ class BancoDados:
         cursor = conexao.cursor()
 
         cursor.execute("""
-            SELECT * FROM notas
+            SELECT * FROM note
             ORDER BY favorita DESC, id ASC
         """)
 
@@ -52,7 +52,7 @@ class BancoDados:
         cursor = conexao.cursor()
 
         cursor.execute("""
-            SELECT * FROM notas WHERE id = ?
+            SELECT * FROM note WHERE id = ?
         """, (id,))
 
         nota = cursor.fetchone()
@@ -66,7 +66,7 @@ class BancoDados:
         cursor = conexao.cursor()
 
         cursor.execute("""
-            DELETE FROM notas
+            DELETE FROM note
             WHERE id = ?
         """, (id,))
 
@@ -78,8 +78,8 @@ class BancoDados:
         cursor = conexao.cursor()
 
         cursor.execute("""
-            UPDATE notas
-            SET titulo = ?, detalhes = ?
+            UPDATE note
+            SET title = ?, content = ?
             WHERE id = ?
         """, (title, details, id))
 
@@ -91,7 +91,7 @@ class BancoDados:
         cursor = conexao.cursor()
 
         cursor.execute("""
-            UPDATE notas
+            UPDATE note
             SET favorita = CASE WHEN favorita = 1 THEN 0 ELSE 1 END
             WHERE id = ?
         """, (id,))
