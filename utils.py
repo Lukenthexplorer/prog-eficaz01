@@ -6,6 +6,8 @@ BANCO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "banco.db")
 
 class BancoDados:
     def __init__(self):
+        self._garantir_escrita()
+
         conexao = self._conectar()
         cursor = conexao.cursor()
 
@@ -24,6 +26,19 @@ class BancoDados:
 
         conexao.commit()
         conexao.close()
+
+    def _garantir_escrita(self):
+        """Garante que o arquivo do banco exista e seja gravavel.
+
+        O arquivo pode ser criado por um processo (o servidor) e escrito por
+        outro (os testes), entao as permissoes precisam ser abertas para ambos.
+        """
+        try:
+            if not os.path.exists(BANCO):
+                open(BANCO, "a").close()
+            os.chmod(BANCO, 0o666)
+        except OSError:
+            pass
 
     def _conectar(self):
         conexao = sqlite3.connect(BANCO)
