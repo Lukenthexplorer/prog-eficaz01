@@ -40,7 +40,8 @@ def edit_note(id):
 @app.route('/notes/<int:id>/favorite', methods=['POST'])
 def favorite_note(id):
     db.toggle_favorite(id)
-    return redirect(url_for('home'))
+    return redirect(url_for('home'))   
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
