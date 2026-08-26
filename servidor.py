@@ -5,7 +5,6 @@ from utils import BancoDados
 app = Flask(__name__)
 db = BancoDados()
 
-
 @app.route('/')
 def home():
     return render_template('index.html', notas=db.get_notes())

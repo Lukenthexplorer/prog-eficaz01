@@ -1,5 +1,5 @@
 {% for nota in notas %}
-<li class="note-card">
+<li class="note-card card">
     <div class="note-actions">
         <a href="{{ url_for('edit_note', id=nota.id) }}" class="action-btn" name="edit_button">
             <img src="{{ url_for('static', filename='img/pencil.svg') }}" alt="Editar" class="action-icon">
