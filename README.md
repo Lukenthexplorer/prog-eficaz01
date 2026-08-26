@@ -2,7 +2,7 @@
 
 ## Status da Entrega
 <img 
-    src="https://github.com/Lukenthexplorer/prog-eficaz01.git" 
+    src="http://3.130.178.228/progeficaz/Projeto1/svg/lukenthexplorer/prog-eficaz01" 
     alt="svg" 
     width="100%" 
     height="300px"
