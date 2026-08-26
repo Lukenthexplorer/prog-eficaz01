@@ -13,7 +13,6 @@ class BancoDados:
                 favorita INTEGER NOT NULL DEFAULT 0
             )
         """)
-
         conexao.commit()
         conexao.close()
 
@@ -56,9 +55,7 @@ class BancoDados:
         """, (id,))
 
         nota = cursor.fetchone()
-
         conexao.close()
-
         return nota
 
     def remove_note(self, id):
