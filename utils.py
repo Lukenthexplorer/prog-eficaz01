@@ -7,7 +7,7 @@ class BancoDados:
 
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS note (
-                id INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT NOT NULL,
                 content TEXT NOT NULL,
                 favorita INTEGER NOT NULL DEFAULT 0
